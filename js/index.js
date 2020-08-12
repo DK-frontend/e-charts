@@ -21,7 +21,7 @@ function formatterDateTime() {
 
 $.ajax({
     type: 'post',
-    url: 'http://route.showapi.com/2217-2',
+    url: 'https://route.showapi.com/2217-2',
     dataType: 'json',
     data: {
         "showapi_timestamp": formatterDateTime(),
@@ -42,7 +42,7 @@ $.ajax({
     var worldList = []
     $.ajax({
         type: 'post',
-        url: 'http://route.showapi.com/2217-5',
+        url: 'https://route.showapi.com/2217-5',
         dataType: 'json',
         data: {
             "showapi_timestamp": formatterDateTime(),
@@ -132,7 +132,7 @@ $.ajax({
         curedNum = []
     $.ajax({
         type: 'post',
-        url: 'http://route.showapi.com/2217-5',
+        url: 'https://route.showapi.com/2217-5',
         dataType: 'json',
         data: {
             "showapi_timestamp": formatterDateTime(),
@@ -256,7 +256,7 @@ $.ajax({
         num = []
     $.ajax({
         type: 'post',
-        url: 'http://route.showapi.com/2217-3',
+        url: 'https://route.showapi.com/2217-3',
         dataType: 'json',
         data: {
             "showapi_timestamp": formatterDateTime(),
