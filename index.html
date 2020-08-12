@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="css/index.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+        <h1>新型冠状肺炎实时追踪</h1>
+        <div class="showTime"></div>
+    </div>
+    <div class="mainbox">
+        <div class="column">
+            <div class="panel bar">
+                <h2>主要疫情国家每日新增人数</h2>
+                <div class="chart"></div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel line">
+                <h2>国内每日新增疑似病例</h2>
+                <div class="chart"></div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel pie">
+                <h2>各大洲感染情况</h2>
+                <div class="chart"></div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="no">
+                <div class="no-hd">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div class="no-bd">
+                    <ul>
+                        <li>累计确诊</li>
+                        <li>累计疑似</li>
+                        <li>累计死亡</li>
+                        <li>累计治愈</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="map">
+                <div class="map1"></div>
+                <div class="map2"></div>
+                <div class="map3"></div>
+                <div class="chart"></div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="panel bar2">
+                <h2>主要疫情国家治愈率</h2>
+                <div class="chart"></div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel line2">
+                <h2>主要疫情国家每日治愈与死亡人数</h2>
+                <h3>
+                    <a href="javascript:;">美国</a>
+                    <a href="javascript:;">俄罗斯</a>
+                    <a href="javascript:;">巴西</a>
+                    <a href="javascript:;">印度</a>
+                    <a href="javascript:;">秘鲁</a>
+                </h3>
+                <div class="chart"></div>
+                <div class="panel-footer"></div>
+            </div>
+            <div class="panel pie2">
+                <h2>境外输入病例</h2>
+                <div class="chart"></div>
+                <div class="panel-footer"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var t = null;
+        t = setTimeout(time, 1000); //開始运行
+        function time() {
+            clearTimeout(t); //清除定时器
+            dt = new Date();
+            var y = dt.getFullYear();
+            var mt = dt.getMonth() + 1;
+            var day = dt.getDate();
+            var h = dt.getHours(); //获取时
+            var m = dt.getMinutes(); //获取分
+            var s = dt.getSeconds(); //获取秒
+            document.querySelector(".showTime").innerHTML = '当前时间：' + y + "年" + mt + "月" + day + "-" + h + "时" + m + "分" + s + "秒";
+            t = setTimeout(time, 1000); //设定定时器，循环运行     
+        }
+    </script>
+    <script src="js/flexible.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/china.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        var lis = document.querySelectorAll(".no-hd ul li")
+        $.ajax({
+            type: 'post',
+            url: 'http://route.showapi.com/2217-3',
+            dataType: 'json',
+            data: {
+                "showapi_timestamp": formatterDateTime(),
+                "showapi_appid": '300816', //这里需要改成自己的appid
+                "showapi_sign": '0b956dbeabe848b8a06b46cb0b8ab8a2', //这里需要改成自己的应用的密钥secret
+            },
+
+            error: function(XmlHttpRequest, textStatus, errorThrown) {
+                alert("操作失败!");
+            },
+            success: function(result) {
+                console.log(result) //console变量在ie低版本下不能用
+                lis[0].innerHTML = result.showapi_res_body.historyList[0].confirmedNum;
+                lis[1].innerHTML = result.showapi_res_body.historyList[0].suspectedNum;
+                lis[2].innerHTML = result.showapi_res_body.historyList[0].deadNum;
+                lis[3].innerHTML = result.showapi_res_body.historyList[0].curedNum;
+            }
+        });
+    </script>
+</body>
+
+</html>
